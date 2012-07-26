@@ -1,0 +1,3 @@
+#!/bin/bash
+export RCX_PORT=usb
+nqc-nonusb $@

@@ -1,0 +1,9 @@
+
+Setting up NQC on a modern machine:
+-----------------------------------
+
+1) Compile my edited version to use the kernel drivers!
+2) chmod 777 /dev/lego0 and /dev/legousbtower0
+3) You might, if I remember, have to symlink /dev/legousb or /dev/legousbtower, perhaps.
+4) Flash firmware to the RCX (provided)
+5) make!

@@ -1,0 +1,483 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="J.C. Burguillo - Daniel A. Rodriguez Silva - José Luis Sieiro Lomba">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win95; I) [Netscape]">
+   <title>INTERRUPTION SIMULATION: TURING MACHINE</title>
+</head>
+<body text="#000000" bgcolor="#FFFFFF" link="#0000EE" vlink="#551A8B" alink="#FF0000" background="../base.jpg" nosave>
+<a href="Turing/MaqTur.htm"></a>&nbsp;
+<div align=right>
+<br><b><font color="#009900">APPENDIX B: TURING MACHINE</font></b></div>
+
+<center><table BORDER WIDTH="100%" >
+<tr>
+<td VALIGN=CENTER><img SRC="../Last.gif" NOSAVE height=40 width=40> <a href="../11.6/11_6.html">Last
+Page</a></td>
+
+<td VALIGN=CENTER>
+<center><img SRC="../Intro.gif" NOSAVE height=48 width=48>&nbsp; <a href="../Introduction.html">Home
+Page</a></center>
+</td>
+
+<td VALIGN=CENTER>
+<div align=right><a href="../Dagra/Simplez/SimplezDemo.html">Next Page</a><img SRC="../Next.gif" NOSAVE height=40 width=40></div>
+</td>
+</tr>
+</table></center>
+
+<h1>
+&nbsp;&nbsp;&nbsp; <b><i><u><font size=+2><font color="#FF6600">B.1 T</font><font color="#009900">URING
+</font><font color="#FF6600">M</font><font color="#009900">ACHINE</font></font></u></i></b></h1>
+
+<h3>
+
+<hr WIDTH="100%"></h3>
+
+<ul>
+<li>
+<b><a href="#intro">INTRODUCTION</a></b></li>
+
+<li>
+<b><a href="#number">TYPICAL NUMBERINGS IN THE TURING MACHINE</a></b></li>
+
+<li>
+<b><a href="#examples">EXAMPLES</a></b></li>
+
+<li>
+<b><a href="#simul">SIMULATORS</a></b></li>
+</ul>
+
+<h3>
+
+<hr WIDTH="100%"></h3>
+
+<h3>
+<a NAME="intro"></a><u><font color="#009900">INTRODUCTION:</font></u></h3>
+&nbsp;&nbsp;&nbsp; A Turing machine is a <font color="#3333FF">finite state
+machine (FSM)</font> that is built basically by <font color="#3333FF">three
+elements</font>:
+<br>&nbsp;
+<ul>
+<li>
+A <font color="#3333FF">tape of infinity length</font>, divided in cells
+with one symbol (and only one) belonging to some alphabet. We will use
+a binary alphabet for the tape.</li>
+</ul>
+
+<ul>
+<li>
+Over the tape there is a device able to move along it one cell each time.
+This device has a <font color="#3333FF">bolster</font> able to read a symbol
+written in the tape, or to delete and print a new one.</li>
+</ul>
+
+<ul>
+<li>
+Finally, it has a <font color="#3333FF">register able to store a state</font>,
+that is defined by a symbol. The symbols that define the device state do
+not have to be the same as the ones could be read or written over the tape.
+We will use natural numbers for representing the several states of the
+machine.</li>
+</ul>
+
+<p><br>&nbsp;&nbsp;&nbsp; From a working point of view, the machine has
+a sequential
+<font color="#3333FF">behavior completely defined</font>:
+<ul>
+<ul>
+<li>
+It starts from any state in the register and with the bolster in a tape
+position.</li>
+</ul>
+</ul>
+
+<ul>
+<ul>
+<li>
+The bolster read the symbol in the cell under it.</li>
+</ul>
+</ul>
+
+<ul>
+<ul>
+<li>
+With this input information and in function of the machine state, it access
+a table (program) and obtains an output with the symbol for printing over
+the tape (in the actual position), the new state of the machine and the
+next cell the bolster goes (left or right).</li>
+</ul>
+</ul>
+
+<ul>
+<ul>
+<li>
+It goes to step 2.</li>
+</ul>
+</ul>
+&nbsp;&nbsp;&nbsp; With this, we can define the finite state automata MT
+as:
+<center>
+<p>&nbsp;MT = &lt; S, (SxM) U (stop), Q, f, g ></center>
+
+<p>&nbsp;&nbsp;&nbsp; being:
+<ul>
+<ul>
+<ul>
+<ul>
+<li>
+S finite set of symbols in the tape (0, 1)</li>
+
+<li>
+M finite set of movements of the bolster (left = &lt;, right = >)</li>
+
+<li>
+Q finite state of internal states (q = 0, 1, 2, 3 ...)</li>
+
+<li>
+f: S x Q -> Q transition function</li>
+
+<li>
+g: S x Q -> (S x M) U (stop) output function</li>
+</ul>
+</ul>
+</ul>
+</ul>
+
+<hr WIDTH="100%">
+<h3>
+<a NAME="number"></a><b><u><font color="#009900">TIPYCAL NUMBERINGS IN
+A TURING MACHINE</font></u></b></h3>
+
+<ul>
+<li>
+<u><font color="#3333FF">UNARY NUMBERS (UN)</font></u></li>
+</ul>
+
+<ul>&nbsp;&nbsp; We could think about a binary representation for the numbers,
+but the amount of operations for managing them with this format makes that
+the number of states for the machine raises very much.
+<p>&nbsp;&nbsp;&nbsp; For simplifying the process, we can represent each
+number with a string with as 1 as the cardinal for each one (<font color="#3333FF">Unary
+Numbers</font>). Thus:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 = 11
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5 = 11111</ul>
+
+<blockquote>
+<li>
+<font color="#3333FF">&nbsp;<u>EXPANDED BINARY NUMBERS (XN)</u></font></li>
+</blockquote>
+
+<ul>&nbsp;&nbsp; But if we treat with big numbers, unary numbers dont seem
+a good representation, so we can introduce a new type of numbering based
+in binary representation, but with some modifies to allow Turing Machine
+easy understanding. This new kind of number representation is called <font color="#3333FF">Expanded
+Binary.</font>
+<p>Steps to follow to represent a number in expanded binary:
+<br>&nbsp;
+<ul>
+<ol>
+<li>
+Convert the number to binary.</li>
+
+<li>
+Codify the binary number according to the next codification table:</li>
+
+<br>Substitute a '<font color="#3333FF">0</font>' for a '<font color="#3333FF">0</font>'
+<br>Substitute a '<font color="#3333FF">1</font>' for a '<font color="#3333FF">10</font>'
+<li>
+And Use '<font color="#3333FF">110</font>'(=,) to separate or end numbers
+(to avoid confusing the Turing Machine)</li>
+</ol>
+</ul>
+
+<p><br><font color="#3333FF">Example:</font>&nbsp; Represent the number
+105 in Expanded Binary:
+<br>&nbsp;
+<ul>
+<ol>
+<li>
+In binary:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1101001</li>
+
+<li>
+Codifying:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#009900">10</font><font color="#FF6600">10</font><font color="#009900">0</font><font color="#FF6600">10</font><font color="#009900">0</font><font color="#FF6600">0</font><font color="#009900">10</font></li>
+
+<li>
+To end:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10100100010<font color="#3333FF">110</font></li>
+</ol>
+</ul>
+</ul>
+
+<hr WIDTH="100%">
+<h3>
+<a NAME="examples"></a><b><u><font color="#009900">EXAMPLES:</font></u></b></h3>
+
+<ul>
+<li>
+<u><font color="#000000"><a href="#ex1">Example 1: Unary+Unary</a></font></u></li>
+
+<li>
+<u><font color="#000000"><a href="#ex2">Example 2: Unary*2 (UN*2)</a></font></u></li>
+
+<li>
+<u><font color="#000000"><a href="#ex3">Example 3: Expanded Binary+1 (XN+1)</a></font></u></li>
+
+<li>
+<u><font color="#000000"><a href="#ex4">Example 4: Expanded Binary*2 (XN*2)</a></font></u>
+
+</ul>
+
+<hr WIDTH="100%">
+
+<h3>
+<a NAME="ex1"></a><u><font color="#000000">Example 1: Unary+Unary</font></u></h3>
+
+<blockquote>
+&nbsp;&nbsp;&nbsp; Let's see a first <font color="#3333FF">simple example</font>
+for understanding how works Turing Machine. One of the simple tasks that
+can be done with a Turing Machine is <font color="#3333FF">adding two <a href="#number">unary
+numbers</a></font>.
+<p>&nbsp;&nbsp;&nbsp; First we must define a convention for representing
+such numbers over the tape. We could think about a binary representation
+of them, but the amount of operations for managing them with this format
+makes that the number of states for the machine raises very much.
+<p>&nbsp;&nbsp;&nbsp; For simplifying the process, let's represent each
+number with a string with as 1 as the cardinal for each one. Thus:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2 = <font color="#009900">11</font>
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5 = <font color="#FF6600">11111</font>
+<p>&nbsp;&nbsp;&nbsp; Both numbers will be split by a zero:
+<center>
+<p>&nbsp;... 0000<font color="#009900">11</font>0<font color="#FF6600">11111</font>0000
+...</center>
+
+<p>&nbsp;&nbsp;&nbsp; Where (...) means an infinite number of zeros.
+<p>&nbsp;&nbsp;&nbsp; For getting the result from this representation,
+a solution could be convert the intermediate 0 in a 1 and delete a 1 in
+a extreme writing a zero instead of it.
+<br>&nbsp;
+<p><br>
+<center>
+<p>&nbsp;... 0000<font color="#999900">1111111</font>0000 ...</center>
+
+<p><br>
+<p>&nbsp;&nbsp;&nbsp; In this way we have a string with a number of ones
+equal to the sum of both numbers.
+<p>&nbsp;&nbsp;&nbsp; For implementing this, we suppose as initial conditions
+that the bolster is located to the left of&nbsp; the first one. The register
+will be in the internal state A (for this example we will use letters instead
+of natural numbers for internal states).
+<p>&nbsp;&nbsp;&nbsp; Therefore, the machine should move to the right until
+if finds a 1, change it by a 0, move to the right until it finds a 0 and
+change it by a 1.
+<p>&nbsp;&nbsp;&nbsp; The next <font color="#3333FF">program</font> will
+do this algorithm:
+<br>&nbsp;
+<table BORDER COLS=3 WIDTH="88%" >
+<tr>
+<td ALIGN=CENTER VALIGN=CENTER>&nbsp;</td>
+
+<td>
+<center>READ SYMBOL</center>
+</td>
+
+<td>
+<center>READ SYMBOL</center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>INTERNAL STATE</center>
+</td>
+
+<td>
+<center>0</center>
+</td>
+
+<td>
+<center>1</center>
+</td>
+</tr>
+
+<tr VALIGN=CENTER>
+<td>
+<center>A</center>
+</td>
+
+<td>
+<center>0,A,></center>
+</td>
+
+<td>
+<center>0,B,></center>
+</td>
+</tr>
+
+<tr>
+<td>
+<center>A</center>
+</td>
+
+<td>
+<center>1,stop</center>
+</td>
+
+<td>
+<center>1,B,></center>
+</td>
+</tr>
+</table>
+
+<p>&nbsp;&nbsp;&nbsp; If the machine reads a 0 (top row) and it is in A
+state then it does (0, A, >), i.e. it prints a 0, remain in A state and
+it moves to the right.
+<p>&nbsp;&nbsp;&nbsp; If it is in A state and reads a 1, it prints a 0.
+changes to B state and goes to the right.
+<p>&nbsp;&nbsp;&nbsp; It it is in B state and reads a 1, it prints a 1,
+remain in B state and moves the bolster to the right.
+<p>&nbsp;&nbsp;&nbsp; It it is in B state and reads a 0. prints a 1 and
+stop
+
+
+<p><b><i><font color="#000000">Program:</font></i></b>
+<br>&nbsp;
+
+<table BORDER COLS=1 cellpadding="10">
+<tr>
+<td><b><tt><font color="#FF0000">0 0,0,> 0,1,></font></tt></b>
+<br><b><tt><font color="#FF0000">1 1,stop 1,1,></font></tt></b>
+<br><b><tt><font color="#FF0000">F</font></tt></b></td>
+</tr>
+</table>
+</blockquote>
+<hr WIDTH="100%">
+
+<h3>
+<a NAME="ex2"></a><u><font color="#000000">Example 2: Unary*2 (UN*2)</font></u></h3>
+
+<blockquote><font color="#000000">This program duplicates an <a href="#number">unary
+number</a></font>
+<p><font color="#000000">Example: number 4</font>
+<blockquote>
+<font color="#000000">...000</font><font color="#009900">1111</font><font color="#000000">0000000...</font></blockquote>
+<font color="#000000">Solution: 4*2=8</font>
+<blockquote>
+<font color="#000000">...000</font><font color="#FFFF00">11111111</font><font color="#000000">000...</font></blockquote>
+
+<p><br><b><i><font color="#000000">Program:</font></i></b>
+<br>&nbsp;
+<table BORDER COLS=1 cellpadding="10">
+<tr>
+<td><b><tt><font color="#FF0000">0 0,0,> 0,1,></font></tt></b>
+<br><b><tt><font color="#FF0000">1 1,2,&lt; 1,1,></font></tt></b>
+<br><b><tt><font color="#FF0000">2 1,3,> 0,4,></font></tt></b>
+<br><b><tt><font color="#FF0000">3 0,stop 1,3,></font></tt></b>
+<br><b><tt><font color="#FF0000">4 1,5,&lt; 1,4,></font></tt></b>
+<br><b><tt><font color="#FF0000">5 1,2,&lt; 1,5,&lt;</font></tt></b>
+<br><b><tt><font color="#FF0000">F</font></tt></b></td>
+</tr>
+</table>
+</blockquote>
+<hr WIDTH="100%">
+
+<h3>
+<a NAME="ex3"></a><u><font color="#000000">Example 3: Expanded Binary+1
+(XN+1)</font></u></h3>
+
+<blockquote><font color="#000000">Add one to an <a href="#number">Expanded
+Binary</a> Number.</font>
+<p><font color="#000000">Example:&nbsp; number 41 (binary: 101001)</font>
+<blockquote><font color="#000000">...000</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">0</font><font color="#FF6600">10</font><font color="#3333FF">110</font><font color="#000000">000...&nbsp;
+(41 and the separator 110)</font></blockquote>
+<font color="#000000">Solution: 41+1=42 (binary: 101010)</font>
+<blockquote><font color="#000000">...000</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#3333FF">110</font><font color="#000000">000...&nbsp;
+(42 and the separater 110)</font></blockquote>
+<b><i><font color="#000000">Program:</font></i></b>
+<br>&nbsp;
+<table BORDER COLS=1 cellpadding="10">
+<tr>
+<td><b><tt><font color="#FF0000">0 0,0,> 1,1,></font></tt></b>
+<br><b><tt><font color="#FF0000">1 0,0,> 1,2,></font></tt></b>
+<br><b><tt><font color="#FF0000">2 0,3,&lt; 1,2,></font></tt></b>
+<br><b><tt><font color="#FF0000">3 1,stop 0,4,&lt;</font></tt></b>
+<br><b><tt><font color="#FF0000">4 1,5,&lt; 1,4,&lt;</font></tt></b>
+<br><b><tt><font color="#FF0000">5 0,6,> 1,2,></font></tt></b>
+<br><b><tt><font color="#FF0000">6 0,stop 1,7,></font></tt></b>
+<br><b><tt><font color="#FF0000">7 1,3,> 0,7,></font></tt></b>
+<br><b><tt><font color="#FF0000">F</font></tt></b></td>
+</tr>
+</table>
+</blockquote>
+<hr WIDTH="100%">
+
+<h3>
+<a NAME="ex4"></a><u><font color="#000000">Example 4: Expanded Binary*2
+(XN*2)</font></u></h3>
+
+<blockquote><font color="#000000">Duplicate a <a href="#number">Binary
+Expanded</a>&nbsp; number.</font>
+<p><font color="#000000">Example: number 41 (binary: 101001)</font>
+<blockquote><font color="#000000">...000</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">0</font><font color="#FF6600">10</font><font color="#3333FF">110</font><font color="#000000">000...(41
+and the separator 110)</font></blockquote>
+<font color="#000000">Solution: 41*2=82 (binary: 1010010)</font>
+<blockquote><font color="#000000">...000</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">10</font><font color="#FF6600">0</font><font color="#009900">0</font><font color="#FF6600">10</font><font color="#009900">0</font><font color="#3333FF">110</font><font color="#000000">00...(82
+and the separator 110)</font></blockquote>
+<b><i><font color="#000000">Program:</font></i></b>
+<br>&nbsp;
+<table BORDER COLS=1 cellpadding="10">
+<tr>
+<td><b><tt><font color="#FF0000">0 0,0,> 0,1,></font></tt></b>
+<br><b><tt><font color="#FF0000">1 1,0,> 0,2,></font></tt></b>
+<br><b><tt><font color="#FF0000">2 1,3,> 1,stop</font></tt></b>
+<br><b><tt><font color="#FF0000">3 1,stop 1,stop</font></tt></b>
+<br><b><tt><font color="#FF0000">F</font></tt></b></td>
+</tr>
+</table>
+</blockquote>
+
+<hr WIDTH="100%">
+<h3>
+<a NAME="simul"></a><b><u><font color="#009900">SIMULATORS (JAR version)</font></u></b></h3>
+There are two simulators avaliable, If your <font color="#FF0000">browser
+accepts jar</font> files, you can download the applets in jar version (compressed),
+which is <font color="#FF0000">faster</font><font color="#000000">. If
+you have problems get the other version in the back page</font>:
+<ul>
+<li>
+Press over the next button for launching one Simulator (Galego, Castellano,
+English)&nbsp;<applet CODEBASE="josedani" CODE="ApTURING.class" ARCHIVE="josedani.jar" WIDTH=120 HEIGHT=30></applet></li>
+
+<li>
+Press over the next button for launching another Simulator (Galego, Castellano,
+English, Francais)&nbsp;<applet CODEBASE="mcacheda" CODE= "pp2mcacheda.class" ARCHIVE="mcacheda.jar" WIDTH=120 HEIGHT=30></applet></li>
+</ul>
+
+<p><br>
+<hr WIDTH="100%">
+<br>&nbsp;
+<center><table BORDER WIDTH="100%" >
+<tr>
+<td VALIGN=CENTER><img SRC="../Last.gif" NOSAVE height=40 width=40> <a href="../11.6/11_6.html">Last
+Page</a></td>
+
+<td VALIGN=CENTER>
+<center><img SRC="../Intro.gif" NOSAVE height=48 width=48>&nbsp; <a href="../Introduction.html">Home
+Page</a></center>
+</td>
+
+<td VALIGN=CENTER>
+<div align=right><a href="../Dagra/Simplez/SimplezDemo.html">Next Page</a><img SRC="../Next.gif" NOSAVE height=40 width=40></div>
+</td>
+</tr>
+</table></center>
+
+<div align=right>
+<p><b><font color="#009900">APPENDIX B: TURING MACHINE</font></b></div>
+
+</body>
+</html>
